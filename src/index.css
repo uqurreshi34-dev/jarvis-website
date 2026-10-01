@@ -12,6 +12,33 @@ html { scroll-behavior: smooth; }
 body { margin: 0; min-width: 320px; min-height: 100vh; background: #020812; }
 button, a { -webkit-tap-highlight-color: transparent; }
 
+/* Footer credit hierarchy */
+footer > div > span:first-child {
+  font-size: .72rem;
+  line-height: 1.5;
+  font-weight: 600;
+  letter-spacing: .12em;
+  color: rgba(203, 213, 225, .78);
+}
+
+footer > div > span:last-child {
+  font-size: .72rem;
+  line-height: 1.5;
+  letter-spacing: .08em;
+}
+
+/* Feature cards: subtle 2s entrance/focus */
+button.group.glass.w-full {
+  opacity: 0;
+  animation: cardFocusIn 2s cubic-bezier(.16, .78, .18, 1) both;
+}
+
+button.group.glass.w-full:nth-child(2) { animation-delay: .10s; }
+button.group.glass.w-full:nth-child(3) { animation-delay: .20s; }
+button.group.glass.w-full:nth-child(4) { animation-delay: .30s; }
+button.group.glass.w-full:nth-child(5) { animation-delay: .40s; }
+button.group.glass.w-full:nth-child(6) { animation-delay: .50s; }
+
 .glass {
   background: linear-gradient(180deg, rgba(8, 29, 49, .78), rgba(4, 18, 31, .72));
   border: 1px solid rgba(51, 164, 255, .17);
@@ -84,6 +111,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .reactor-petals span:nth-child(8){ transform: rotate(315deg) translateX(106px); }
 
 @keyframes spin { to { transform: rotate(360deg); } }
+@keyframes cardFocusIn {
+  0% { opacity: 0; transform: translateY(18px) scale(.985); filter: blur(4px); }
+  55% { opacity: 1; transform: translateY(-2px) scale(1.002); filter: blur(0); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
 @keyframes reactorBoot {
   0% { transform: scale(.72); filter: drop-shadow(0 0 8px rgba(0, 173, 255, .08)); }
   24% { transform: scale(.98); filter: drop-shadow(0 0 45px rgba(0, 196, 255, .42)); }
