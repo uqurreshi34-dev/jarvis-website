@@ -50,14 +50,7 @@ export default function App() {
   const allFeatures = useMemo(() => [...coreFeatures, ...otherFeatures], [])
 
   useEffect(() => {
-    const play = () => playMechanicalStartupSound()
-    window.addEventListener('pointerdown', play, { once: true })
-    window.addEventListener('keydown', play, { once: true })
-    playMechanicalStartupSound()
-    return () => {
-      window.removeEventListener('pointerdown', play)
-      window.removeEventListener('keydown', play)
-    }
+    void playMechanicalStartupSound()
   }, [])
 
   useEffect(() => {
