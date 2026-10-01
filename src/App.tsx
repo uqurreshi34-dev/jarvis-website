@@ -5,7 +5,6 @@ import { Reactor } from '@/components/Reactor'
 import { FeatureCard } from '@/components/FeatureCard'
 import { Footer } from '@/components/Footer'
 import { Icon } from '@/components/Icon'
-import { playMechanicalStartupSound } from '@/lib/mechanicalSound'
 import type { Feature } from '@/types'
 
 const coreFeatures: Feature[] = [
@@ -49,9 +48,7 @@ export default function App() {
   const [selectedFeature, setSelectedFeature] = useState<Feature | null>(null)
   const allFeatures = useMemo(() => [...coreFeatures, ...otherFeatures], [])
 
-  useEffect(() => {
-    void playMechanicalStartupSound()
-  }, [])
+
 
   useEffect(() => {
     document.title = active === 'home' ? 'JARVIS — AI • HOME • LIFE' : `JARVIS — ${active.replace(/(^|_)/g, ' ').replace(/^./, (c) => c.toUpperCase())}`
