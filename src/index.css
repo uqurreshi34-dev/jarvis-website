@@ -38,12 +38,23 @@ button, a { -webkit-tap-highlight-color: transparent; }
   opacity: .6;
 }
 
-.reactor-shell { position: relative; width: min(46vw, 470px); aspect-ratio: 1; filter: drop-shadow(0 0 35px rgba(0, 173, 255, .26)); }
+.reactor-shell { position: relative; width: min(46vw, 470px); aspect-ratio: 1; filter: drop-shadow(0 0 35px rgba(0, 173, 255, .26)); transform: translateZ(0); }
+.reactor-shell.booting { animation: reactorBoot 3.2s cubic-bezier(.16,.78,.18,1) both; }
 .reactor-ring { position: absolute; inset: 7%; border-radius: 50%; border: 2px solid rgba(88, 195, 255, .45); box-shadow: 0 0 0 11px rgba(40, 157, 230, .05), inset 0 0 24px rgba(33, 170, 255, .16); }
 .reactor-ring.r2 { inset: 15%; border-style: dashed; border-color: rgba(76, 197, 255, .68); animation: spin 18s linear infinite reverse; }
 .reactor-ring.r3 { inset: 24%; border-width: 5px; border-top-color: transparent; border-bottom-color: transparent; animation: spin 9s linear infinite; }
 .reactor-ring.r4 { inset: 32%; border: 1px solid rgba(118, 215, 255, .55); animation: pulseRing 2.8s ease-in-out infinite; }
+.reactor-bloom { position: absolute; inset: 10%; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.98) 0 3%, rgba(162,235,255,.92) 10%, rgba(47,192,255,.58) 28%, rgba(0,145,255,.2) 51%, transparent 70%); opacity: 0; transform: scale(.32); filter: blur(10px); pointer-events: none; }
+.reactor-shell.booting .reactor-bloom { animation: reactorIgnition 3.2s cubic-bezier(.13,.8,.2,1) both; }
+.reactor-shockwave { position: absolute; inset: 25%; border-radius: 50%; border: 3px solid rgba(164, 238, 255, .72); opacity: 0; transform: scale(.45); pointer-events: none; }
+.reactor-shell.booting .reactor-shockwave { animation: shockwave 3.2s cubic-bezier(.12,.75,.2,1) both; }
+.reactor-shell.booting .r2 { animation-duration: 4.7s; }
+.reactor-shell.booting .r3 { animation-duration: 2.4s; }
+.reactor-shell.booting .reactor-petals { animation-duration: 4.4s; }
 .reactor-core { position: absolute; inset: 39%; border-radius: 50%; background: radial-gradient(circle, #fff 0 4%, #beefff 12%, #4bc7ff 28%, #0b76be 58%, transparent 72%); box-shadow: 0 0 20px rgba(113, 220, 255, .95), 0 0 55px rgba(0, 168, 255, .7), 0 0 95px rgba(0, 125, 255, .33); animation: corePulse 2.4s ease-in-out infinite; }
+.reactor-core-hot { position: absolute; inset: 31%; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,1), rgba(186,243,255,.72) 17%, rgba(31,174,255,.32) 46%, transparent 72%); opacity: 0; transform: scale(.3); filter: blur(5px); pointer-events: none; }
+.reactor-shell.booting .reactor-core-hot { animation: coreIgnition 3.2s cubic-bezier(.14,.8,.18,1) both; }
+.reactor-shell.booting .reactor-core { animation: coreBoot 3.2s cubic-bezier(.12,.82,.18,1) both; }
 .reactor-petals { position: absolute; inset: 20%; border-radius: 50%; animation: spin 28s linear infinite; }
 .reactor-petals span { position: absolute; left: 50%; top: 50%; width: 17%; height: 10%; transform-origin: 0 50%; border-radius: 10px; background: linear-gradient(90deg, rgba(157, 214, 238, .9), rgba(41, 83, 111, .2)); box-shadow: 0 0 12px rgba(38, 175, 255, .2); }
 .reactor-petals span:nth-child(1){ transform: rotate(0deg) translateX(106px); }
@@ -56,6 +67,38 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .reactor-petals span:nth-child(8){ transform: rotate(315deg) translateX(106px); }
 
 @keyframes spin { to { transform: rotate(360deg); } }
+@keyframes reactorBoot {
+  0% { transform: scale(.72); filter: drop-shadow(0 0 8px rgba(0, 173, 255, .08)); }
+  24% { transform: scale(.98); filter: drop-shadow(0 0 45px rgba(0, 196, 255, .42)); }
+  40% { transform: scale(.9); }
+  62% { transform: scale(1.025); filter: drop-shadow(0 0 92px rgba(0, 210, 255, .55)); }
+  78% { transform: scale(.99); }
+  100% { transform: scale(1); filter: drop-shadow(0 0 35px rgba(0, 173, 255, .26)); }
+}
+@keyframes reactorIgnition {
+  0%, 24% { opacity: 0; transform: scale(.32); }
+  56% { opacity: .28; transform: scale(.58); }
+  74% { opacity: 1; transform: scale(1.42); }
+  100% { opacity: 0; transform: scale(1.08); }
+}
+@keyframes shockwave {
+  0%, 43% { opacity: 0; transform: scale(.45); }
+  63% { opacity: .85; transform: scale(.88); }
+  83% { opacity: .35; transform: scale(1.48); }
+  100% { opacity: 0; transform: scale(1.8); }
+}
+@keyframes coreIgnition {
+  0%, 25% { opacity: 0; transform: scale(.3); }
+  62% { opacity: .68; transform: scale(.82); }
+  76% { opacity: 1; transform: scale(1.5); }
+  100% { opacity: 0; transform: scale(1.12); }
+}
+@keyframes coreBoot {
+  0% { transform: scale(.62); opacity: .28; box-shadow: 0 0 6px rgba(113, 220, 255, .14); }
+  58% { transform: scale(.86); opacity: .8; box-shadow: 0 0 34px rgba(113, 220, 255, .62), 0 0 100px rgba(0, 173, 255, .32); }
+  76% { transform: scale(1.18); opacity: 1; box-shadow: 0 0 55px rgba(206, 247, 255, 1), 0 0 160px rgba(0, 185, 255, .76), 0 0 235px rgba(0, 125, 255, .4); }
+  100% { transform: scale(1); opacity: 1; box-shadow: 0 0 20px rgba(113, 220, 255, .95), 0 0 55px rgba(0, 168, 255, .7), 0 0 95px rgba(0, 125, 255, .33); }
+}
 @keyframes corePulse { 0%,100%{ transform:scale(.96); opacity:.86 } 50%{ transform:scale(1.06); opacity:1 } }
 @keyframes pulseRing { 0%,100%{ box-shadow: inset 0 0 10px rgba(38, 181, 255, .14), 0 0 5px rgba(38, 181, 255, .04)} 50%{ box-shadow: inset 0 0 22px rgba(38, 181, 255, .26), 0 0 20px rgba(38, 181, 255, .14)} }
 

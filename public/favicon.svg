@@ -1,21 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="JARVIS arc reactor">
   <defs>
-    <radialGradient id="g" cx="50%" cy="50%" r="50%">
-      <stop offset="0" stop-color="#ffffff"/>
-      <stop offset="0.2" stop-color="#bff2ff"/>
-      <stop offset="0.48" stop-color="#2bbcff"/>
-      <stop offset="1" stop-color="#0670b8"/>
+    <radialGradient id="core" cx="50%" cy="45%" r="56%">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".15" stop-color="#e9fbff"/>
+      <stop offset=".38" stop-color="#70dcff"/>
+      <stop offset=".72" stop-color="#0a83ca"/>
+      <stop offset="1" stop-color="#020812"/>
     </radialGradient>
-    <filter id="glow"><feGaussianBlur stdDeviation="2.1" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="2.4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
-  <circle cx="32" cy="32" r="29" fill="#020812" stroke="#238fd1" stroke-width="2"/>
-  <circle cx="32" cy="32" r="23" fill="none" stroke="#76dcff" stroke-width="2" opacity=".8"/>
-  <g fill="#5fcfff" opacity=".72">
-    <path d="M30 7h4l3 13-5 4-5-4z"/><path d="M57 30v4l-13 3-4-5 4-5z"/>
-    <path d="M30 57h4l3-13-5-4-5 4z"/><path d="M7 30v4l13 3 4-5-4-5z"/>
-    <path d="M49 13l3 3-8 10-6-3 1-6z"/><path d="M51 48l-3 3-10-8 3-6 6 1z"/>
-    <path d="M15 49l-3-3 8-10 6 3-1 6z"/><path d="M13 16l3-3 10 8-3 6-6-1z"/>
+  <circle cx="32" cy="32" r="30" fill="#020812" stroke="#1c8ccc" stroke-width="1.6"/>
+  <g transform="translate(32 32)" fill="none" stroke="#63d5ff" filter="url(#glow)">
+    <circle r="24" stroke-width="1.4" opacity=".6"/>
+    <circle r="20" stroke-width="2.1" opacity=".85"/>
+    <path d="M0-27 V-17 M27 0 H17 M0 27 V17 M-27 0 H-17" stroke-width="3"/>
+    <path d="M-18-18 L-11-11 M18-18 L11-11 M-18 18 L-11 11 M18 18 L11 11" stroke-width="2.3"/>
+    <path d="M-10-17 L-2-10 L-7-2 L0 4 L-7 12" stroke-width="2.8"/>
+    <path d="M10-17 L2-10 L7-2 L0 4 L7 12" stroke-width="2.2" opacity=".7"/>
   </g>
-  <circle cx="32" cy="32" r="12" fill="url(#g)" filter="url(#glow)"/>
-  <circle cx="32" cy="32" r="4" fill="#fff"/>
+  <circle cx="32" cy="32" r="12.5" fill="url(#core)" filter="url(#glow)"/>
+  <circle cx="32" cy="32" r="3.8" fill="#fff"/>
 </svg>
