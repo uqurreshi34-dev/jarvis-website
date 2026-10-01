@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #edf7ff;
+  background: #020812;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+html { scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; min-height: 100vh; background: #020812; }
+button, a { -webkit-tap-highlight-color: transparent; }
+
+.glass {
+  background: linear-gradient(180deg, rgba(8, 29, 49, .78), rgba(4, 18, 31, .72));
+  border: 1px solid rgba(51, 164, 255, .17);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.035), 0 18px 70px rgba(0,0,0,.28);
+  backdrop-filter: blur(18px);
+}
+
+.scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgba(255,255,255,.018) 0, rgba(255,255,255,.018) 1px, transparent 1px, transparent 4px);
+  mix-blend-mode: soft-light;
+}
+
+.stars {
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(78, 190, 255, .7) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 74% 16%, rgba(78, 190, 255, .5) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 86% 78%, rgba(78, 190, 255, .45) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 40% 88%, rgba(78, 190, 255, .35) 0 1px, transparent 1.5px);
+  background-size: 230px 230px, 310px 310px, 260px 260px, 350px 350px;
+  opacity: .6;
+}
+
+.reactor-shell { position: relative; width: min(46vw, 470px); aspect-ratio: 1; filter: drop-shadow(0 0 35px rgba(0, 173, 255, .26)); }
+.reactor-ring { position: absolute; inset: 7%; border-radius: 50%; border: 2px solid rgba(88, 195, 255, .45); box-shadow: 0 0 0 11px rgba(40, 157, 230, .05), inset 0 0 24px rgba(33, 170, 255, .16); }
+.reactor-ring.r2 { inset: 15%; border-style: dashed; border-color: rgba(76, 197, 255, .68); animation: spin 18s linear infinite reverse; }
+.reactor-ring.r3 { inset: 24%; border-width: 5px; border-top-color: transparent; border-bottom-color: transparent; animation: spin 9s linear infinite; }
+.reactor-ring.r4 { inset: 32%; border: 1px solid rgba(118, 215, 255, .55); animation: pulseRing 2.8s ease-in-out infinite; }
+.reactor-core { position: absolute; inset: 39%; border-radius: 50%; background: radial-gradient(circle, #fff 0 4%, #beefff 12%, #4bc7ff 28%, #0b76be 58%, transparent 72%); box-shadow: 0 0 20px rgba(113, 220, 255, .95), 0 0 55px rgba(0, 168, 255, .7), 0 0 95px rgba(0, 125, 255, .33); animation: corePulse 2.4s ease-in-out infinite; }
+.reactor-petals { position: absolute; inset: 20%; border-radius: 50%; animation: spin 28s linear infinite; }
+.reactor-petals span { position: absolute; left: 50%; top: 50%; width: 17%; height: 10%; transform-origin: 0 50%; border-radius: 10px; background: linear-gradient(90deg, rgba(157, 214, 238, .9), rgba(41, 83, 111, .2)); box-shadow: 0 0 12px rgba(38, 175, 255, .2); }
+.reactor-petals span:nth-child(1){ transform: rotate(0deg) translateX(106px); }
+.reactor-petals span:nth-child(2){ transform: rotate(45deg) translateX(106px); }
+.reactor-petals span:nth-child(3){ transform: rotate(90deg) translateX(106px); }
+.reactor-petals span:nth-child(4){ transform: rotate(135deg) translateX(106px); }
+.reactor-petals span:nth-child(5){ transform: rotate(180deg) translateX(106px); }
+.reactor-petals span:nth-child(6){ transform: rotate(225deg) translateX(106px); }
+.reactor-petals span:nth-child(7){ transform: rotate(270deg) translateX(106px); }
+.reactor-petals span:nth-child(8){ transform: rotate(315deg) translateX(106px); }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes corePulse { 0%,100%{ transform:scale(.96); opacity:.86 } 50%{ transform:scale(1.06); opacity:1 } }
+@keyframes pulseRing { 0%,100%{ box-shadow: inset 0 0 10px rgba(38, 181, 255, .14), 0 0 5px rgba(38, 181, 255, .04)} 50%{ box-shadow: inset 0 0 22px rgba(38, 181, 255, .26), 0 0 20px rgba(38, 181, 255, .14)} }
+
+@media (max-width: 900px) {
+  .reactor-shell { width: min(76vw, 380px); }
+  .reactor-petals span:nth-child(1){ transform: rotate(0deg) translateX(74px); }
+  .reactor-petals span:nth-child(2){ transform: rotate(45deg) translateX(74px); }
+  .reactor-petals span:nth-child(3){ transform: rotate(90deg) translateX(74px); }
+  .reactor-petals span:nth-child(4){ transform: rotate(135deg) translateX(74px); }
+  .reactor-petals span:nth-child(5){ transform: rotate(180deg) translateX(74px); }
+  .reactor-petals span:nth-child(6){ transform: rotate(225deg) translateX(74px); }
+  .reactor-petals span:nth-child(7){ transform: rotate(270deg) translateX(74px); }
+  .reactor-petals span:nth-child(8){ transform: rotate(315deg) translateX(74px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+}
