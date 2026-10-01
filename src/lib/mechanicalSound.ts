@@ -8,7 +8,6 @@ function createStartupAudio() {
   const audio = new Audio(STARTUP_AUDIO_URL)
   audio.preload = 'auto'
   audio.volume = 0.9
-  audio.playsInline = true
   return audio
 }
 
