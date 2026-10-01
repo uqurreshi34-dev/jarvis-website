@@ -79,4 +79,5 @@ export function Nav({ active, onSelect }: Props) {
         />
       )}
     </>
+  )
 }
