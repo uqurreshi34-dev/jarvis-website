@@ -19,9 +19,14 @@ export function Nav({ active, onSelect }: Props) {
   useEffect(() => {
     if (!open) return
 
-    const closeFromAnywhere = () => setOpen(false)
-    document.addEventListener('click', closeFromAnywhere)
-    return () => document.removeEventListener('click', closeFromAnywhere)
+    const closeFromAnywhere = (event: PointerEvent) => {
+      const target = event.target
+      if (target instanceof Element && target.closest('[data-menu-toggle="true"]')) return
+      setOpen(false)
+    }
+
+    document.addEventListener('pointerdown', closeFromAnywhere)
+    return () => document.removeEventListener('pointerdown', closeFromAnywhere)
   }, [open])
 
   const select = (tab: Tab) => {
@@ -48,7 +53,12 @@ export function Nav({ active, onSelect }: Props) {
           ))}
         </nav>
 
-        <button aria-label="Toggle menu" className="rounded-lg p-2 text-slate-200 md:hidden" onClick={() => setOpen((v) => !v)}>
+        <button
+          aria-label="Toggle menu"
+          data-menu-toggle="true"
+          className="rounded-lg p-2 text-slate-200 md:hidden"
+          onClick={() => setOpen((v) => !v)}
+        >
           {open ? <X size={21} /> : <Menu size={21} />}
         </button>
       </div>
