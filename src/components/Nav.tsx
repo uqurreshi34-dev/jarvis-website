@@ -22,9 +22,10 @@ export function Nav({ active, onSelect }: Props) {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-sky-400/10 bg-[#020812]/90 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-        <button onClick={() => select('home')} className="flex items-center gap-3 text-left">
+    <>
+      <header className="sticky top-0 z-50 border-b border-sky-400/10 bg-[#020812]/90 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+          <button onClick={() => select('home')} className="flex items-center gap-3 text-left">
           <span className="flex h-9 w-9 items-center justify-center rounded-full border border-sky-300/30 bg-sky-400/10 text-sky-300 shadow-[0_0_28px_rgba(0,174,255,.18)]">J</span>
           <span>
             <span className="block text-sm font-bold tracking-[.18em] text-white">JARVIS</span>
@@ -48,17 +49,10 @@ export function Nav({ active, onSelect }: Props) {
           onClick={() => setOpen((v) => !v)}
         >
           {open ? <X size={21} /> : <Menu size={21} />}
-        </button>
-      </div>
+          </button>
+        </div>
 
-      {open && (
-        <>
-          <button
-            type="button"
-            aria-label="Close menu"
-            className="fixed inset-x-0 bottom-0 top-0 z-40 bg-[#00050a]/30 md:hidden"
-            onClick={() => setOpen(false)}
-          />
+        {open && (
           <div className="absolute inset-x-0 top-full z-50 border-t border-sky-400/10 bg-[#03101c] px-4 py-4 shadow-[0_18px_40px_rgba(0,0,0,.28)] md:hidden">
             <div className="mx-auto flex max-w-7xl flex-col gap-2">
               {links.map((link) => (
@@ -73,8 +67,16 @@ export function Nav({ active, onSelect }: Props) {
               ))}
             </div>
           </div>
-        </>
+        )}
+      </header>
+
+      {open && (
+        <button
+          type="button"
+          aria-label="Close menu"
+          className="fixed inset-0 z-40 bg-[#00050a]/30 md:hidden"
+          onClick={() => setOpen(false)}
+        />
       )}
-    </header>
-  )
+    </>
 }
