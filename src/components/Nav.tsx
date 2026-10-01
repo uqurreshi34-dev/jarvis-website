@@ -1,5 +1,5 @@
 import { Menu, X } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 
 export type Tab = 'home' | 'features' | 'other' | 'about' | 'status'
 
@@ -15,20 +15,6 @@ const links: Array<{ id: Tab; label: string }> = [
 
 export function Nav({ active, onSelect }: Props) {
   const [open, setOpen] = useState(false)
-  const navRef = useRef<HTMLElement | null>(null)
-
-  useEffect(() => {
-    if (!open) return
-
-    const closeOnOutsideClick = (event: MouseEvent) => {
-      const target = event.target
-      if (target instanceof Node && navRef.current?.contains(target)) return
-      setOpen(false)
-    }
-
-    document.addEventListener('click', closeOnOutsideClick)
-    return () => document.removeEventListener('click', closeOnOutsideClick)
-  }, [open])
 
   const select = (tab: Tab) => {
     onSelect(tab)
@@ -36,7 +22,7 @@ export function Nav({ active, onSelect }: Props) {
   }
 
   return (
-    <header ref={navRef} className="sticky top-0 z-50 border-b border-sky-400/10 bg-[#020812]/90 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-sky-400/10 bg-[#020812]/90 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
         <button onClick={() => select('home')} className="flex items-center gap-3 text-left">
           <span className="flex h-9 w-9 items-center justify-center rounded-full border border-sky-300/30 bg-sky-400/10 text-sky-300 shadow-[0_0_28px_rgba(0,174,255,.18)]">J</span>
@@ -55,8 +41,9 @@ export function Nav({ active, onSelect }: Props) {
         </nav>
 
         <button
+          type="button"
           aria-label="Toggle menu"
-          data-menu-toggle="true"
+          aria-expanded={open}
           className="rounded-lg p-2 text-slate-200 md:hidden"
           onClick={() => setOpen((v) => !v)}
         >
@@ -65,15 +52,28 @@ export function Nav({ active, onSelect }: Props) {
       </div>
 
       {open && (
-        <div className="relative z-50 border-t border-sky-400/10 bg-[#03101c] px-4 py-4 shadow-[0_18px_40px_rgba(0,0,0,.28)] md:hidden">
-          <div className="mx-auto flex max-w-7xl flex-col gap-2">
-            {links.map((link) => (
-              <button key={link.id} onClick={() => select(link.id)} className={`rounded-lg px-3 py-3 text-left text-sm ${active === link.id ? 'bg-sky-400/10 text-sky-300' : 'text-slate-300'}`}>
-                {link.label}
-              </button>
-            ))}
+        <>
+          <button
+            type="button"
+            aria-label="Close menu"
+            className="fixed inset-x-0 bottom-0 top-0 z-40 bg-[#00050a]/30 md:hidden"
+            onClick={() => setOpen(false)}
+          />
+          <div className="absolute inset-x-0 top-full z-50 border-t border-sky-400/10 bg-[#03101c] px-4 py-4 shadow-[0_18px_40px_rgba(0,0,0,.28)] md:hidden">
+            <div className="mx-auto flex max-w-7xl flex-col gap-2">
+              {links.map((link) => (
+                <button
+                  key={link.id}
+                  type="button"
+                  onClick={() => select(link.id)}
+                  className={`rounded-lg px-3 py-3 text-left text-sm ${active === link.id ? 'bg-sky-400/10 text-sky-300' : 'text-slate-300'}`}
+                >
+                  {link.label}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        </>
       )}
     </header>
   )
