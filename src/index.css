@@ -49,7 +49,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   mix-blend-mode: screen;
   transform-origin: center;
   will-change: opacity, transform, filter;
-  animation: starfieldPulse 7s ease-in-out infinite;
+  animation: starfieldPulse 7s ease-in-out infinite, starfieldOrbit 48s linear infinite;
 }
 
 .stars > .absolute,
@@ -117,8 +117,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
   100% { transform: scale(1); opacity: 1; box-shadow: 0 0 20px rgba(113, 220, 255, .95), 0 0 55px rgba(0, 168, 255, .7), 0 0 95px rgba(0, 125, 255, .33); }
 }
 @keyframes starfieldPulse {
-  0%, 100% { opacity: .48; filter: blur(.6px) brightness(.95); transform: scale(1) rotate(-.08deg); }
-  50% { opacity: .98; filter: blur(1.15px) brightness(1.35); transform: scale(1.012) rotate(.08deg); }
+  0%, 100% { opacity: .48; filter: blur(.6px) brightness(.95); }
+  50% { opacity: .98; filter: blur(1.15px) brightness(1.35); }
+}
+
+@keyframes starfieldOrbit {
+  from { transform: rotate(0deg) scale(1); }
+  to { transform: rotate(360deg) scale(1); }
 }
 
 @keyframes corePulse { 0%,100%{ transform:scale(.96); opacity:.86 } 50%{ transform:scale(1.06); opacity:1 } }
