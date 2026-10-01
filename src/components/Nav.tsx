@@ -1,5 +1,5 @@
 import { Menu, X } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export type Tab = 'home' | 'features' | 'other' | 'about' | 'status'
 
@@ -15,6 +15,20 @@ const links: Array<{ id: Tab; label: string }> = [
 
 export function Nav({ active, onSelect }: Props) {
   const [open, setOpen] = useState(false)
+  const navRef = useRef<HTMLElement | null>(null)
+
+  useEffect(() => {
+    if (!open) return
+
+    const closeOnOutsideClick = (event: MouseEvent) => {
+      const target = event.target
+      if (target instanceof Node && navRef.current?.contains(target)) return
+      setOpen(false)
+    }
+
+    document.addEventListener('click', closeOnOutsideClick)
+    return () => document.removeEventListener('click', closeOnOutsideClick)
+  }, [open])
 
   const select = (tab: Tab) => {
     onSelect(tab)
@@ -22,7 +36,7 @@ export function Nav({ active, onSelect }: Props) {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-sky-400/10 bg-[#020812]/90 backdrop-blur-xl">
+    <header ref={navRef} className="sticky top-0 z-50 border-b border-sky-400/10 bg-[#020812]/90 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
         <button onClick={() => select('home')} className="flex items-center gap-3 text-left">
           <span className="flex h-9 w-9 items-center justify-center rounded-full border border-sky-300/30 bg-sky-400/10 text-sky-300 shadow-[0_0_28px_rgba(0,174,255,.18)]">J</span>
