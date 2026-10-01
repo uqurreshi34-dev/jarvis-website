@@ -13,6 +13,9 @@ export function Reactor() {
 
   const activate = () => {
     setBooting(true)
+  }
+
+  const playStartupSound = () => {
     void playMechanicalStartupSound()
   }
 
@@ -20,6 +23,7 @@ export function Reactor() {
     <button
       type="button"
       onPointerDown={activate}
+      onClick={playStartupSound}
       className="reactor-shell-button"
       aria-label="Start JARVIS reactor"
     >
