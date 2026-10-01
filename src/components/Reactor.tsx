@@ -1,11 +1,19 @@
 import { useEffect, useState } from 'react'
+import { playMechanicalStartupSound } from '@/lib/mechanicalSound'
 
 export function Reactor() {
-  const [booting, setBooting] = useState(true)
+  const [booting, setBooting] = useState(false)
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setBooting(false), 3200)
-    return () => window.clearTimeout(timer)
+    let cancelled = false
+
+    void playMechanicalStartupSound().then((started) => {
+      if (!cancelled && started) setBooting(true)
+    })
+
+    return () => {
+      cancelled = true
+    }
   }, [])
 
   return (
