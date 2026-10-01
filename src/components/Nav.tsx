@@ -1,5 +1,5 @@
 import { Menu, X } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 export type Tab = 'home' | 'features' | 'other' | 'about' | 'status'
 
@@ -15,19 +15,6 @@ const links: Array<{ id: Tab; label: string }> = [
 
 export function Nav({ active, onSelect }: Props) {
   const [open, setOpen] = useState(false)
-
-  useEffect(() => {
-    if (!open) return
-
-    const closeFromAnywhere = (event: PointerEvent) => {
-      const target = event.target
-      if (target instanceof Element && target.closest('[data-menu-toggle="true"]')) return
-      setOpen(false)
-    }
-
-    document.addEventListener('pointerdown', closeFromAnywhere)
-    return () => document.removeEventListener('pointerdown', closeFromAnywhere)
-  }, [open])
 
   const select = (tab: Tab) => {
     onSelect(tab)
@@ -64,7 +51,7 @@ export function Nav({ active, onSelect }: Props) {
       </div>
 
       {open && (
-        <div className="border-t border-sky-400/10 bg-[#03101c] px-4 py-4 md:hidden">
+        <div className="relative z-50 border-t border-sky-400/10 bg-[#03101c] px-4 py-4 shadow-[0_18px_40px_rgba(0,0,0,.28)] md:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-2">
             {links.map((link) => (
               <button key={link.id} onClick={() => select(link.id)} className={`rounded-lg px-3 py-3 text-left text-sm ${active === link.id ? 'bg-sky-400/10 text-sky-300' : 'text-slate-300'}`}>
