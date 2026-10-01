@@ -12,21 +12,6 @@ html { scroll-behavior: smooth; }
 body { margin: 0; min-width: 320px; min-height: 100vh; background: #020812; }
 button, a { -webkit-tap-highlight-color: transparent; }
 
-/* Footer credit hierarchy */
-footer > div > span:first-child {
-  font-size: .72rem;
-  line-height: 1.5;
-  font-weight: 600;
-  letter-spacing: .12em;
-  color: rgba(203, 213, 225, .78);
-}
-
-footer > div > span:last-child {
-  font-size: .72rem;
-  line-height: 1.5;
-  letter-spacing: .08em;
-}
-
 /* Feature cards: subtle 2s entrance/focus */
 button.group.glass.w-full {
   opacity: 0;
