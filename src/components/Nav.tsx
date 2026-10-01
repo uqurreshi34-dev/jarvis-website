@@ -1,5 +1,5 @@
 import { Menu, X } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export type Tab = 'home' | 'features' | 'other' | 'about' | 'status'
 
@@ -15,6 +15,14 @@ const links: Array<{ id: Tab; label: string }> = [
 
 export function Nav({ active, onSelect }: Props) {
   const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    if (!open) return
+
+    const closeFromAnywhere = () => setOpen(false)
+    document.addEventListener('click', closeFromAnywhere)
+    return () => document.removeEventListener('click', closeFromAnywhere)
+  }, [open])
 
   const select = (tab: Tab) => {
     onSelect(tab)
@@ -39,10 +47,6 @@ export function Nav({ active, onSelect }: Props) {
             </button>
           ))}
         </nav>
-
-        <div className="hidden md:block">
-          <button onClick={() => select('about')} className="rounded-xl border border-sky-400/20 bg-sky-400/10 px-4 py-2 text-sm font-semibold text-sky-200 transition hover:bg-sky-400/20">Get Started</button>
-        </div>
 
         <button aria-label="Toggle menu" className="rounded-lg p-2 text-slate-200 md:hidden" onClick={() => setOpen((v) => !v)}>
           {open ? <X size={21} /> : <Menu size={21} />}
